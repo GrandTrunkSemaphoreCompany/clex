@@ -19,3 +19,9 @@ The current idea involves a multi-component webserver, including:
 - POST handlers
     - provides a way to add messages onto a queue to be sent out by this tower
 - Internal queues to hold the sending, receiving and relaying of messages
+
+## CLI usage
+
+`go run main.go --id 151 --camera internal,200 --camera usb1,204 --shutter usb3,200`
+
+This will run a Clex "tower" as Tower number 151. It uses a camera on the internal conneciton, pointing at tower 200 and another one on a usb1 interface pointing at tower 204. It has a single shutter on usb3 pointed at tower 200.
