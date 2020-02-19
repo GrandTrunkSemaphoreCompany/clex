@@ -15,6 +15,8 @@ jobs:
           keys:
             - go-mod-v4-{{ checksum "go.sum" }}
 
+      - run: make test
+
       - run: make
 
       - save_cache:
