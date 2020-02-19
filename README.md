@@ -24,4 +24,14 @@ The current idea involves a multi-component webserver, including:
 
 `go run main.go --id 151 --camera internal,200 --camera usb1,204 --shutter usb3,200`
 
-This will run a Clex "tower" as Tower number 151. It uses a camera on the internal conneciton, pointing at tower 200 and another one on a usb1 interface pointing at tower 204. It has a single shutter on usb3 pointed at tower 200.
+- This will run a Clex "tower" as Tower number 151. 
+- It uses a camera on the internal connection, pointing at tower 200
+- It uses another camera on usb1 pointing at tower 204. 
+- It has a single shutter on usb3 pointed at tower 200.
+
+`go run main.go --id 190 --camera file:/tmp/clex,100 --camera file:/tmp/clex,104 --shutter file:/tmp/clex,100`
+
+- This will run a Clex "tower" as Tower number 190. 
+- It uses a "camera" via the filesystem, pointing at tower 100
+- It uses another "camera" on the filesystem pointing at tower 104. 
+- It has a single shutter on the filesystem pointed at tower 100.
