@@ -1,4 +1,4 @@
-package clacks
+package encoding
 
 func BoolsToBytes(t []bool) []byte {
 	b := make([]byte, (len(t)+7)/8)
