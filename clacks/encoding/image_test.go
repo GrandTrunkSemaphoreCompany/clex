@@ -1,4 +1,4 @@
-package clacks
+package encoding
 
 import (
 	"flag"

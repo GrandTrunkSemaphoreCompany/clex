@@ -3,6 +3,7 @@ package cmd
 
 import (
 	"fmt"
+	"github.com/GrandTrunkSemaphoreCompany/clex/clacks"
 	"github.com/spf13/cobra"
 	"os"
 )
@@ -20,6 +21,7 @@ semaphore system. The semaphore system is based upon the Clacks
 from Terry Pratchett's Discworld novels.`,
 		Run: func(cmd *cobra.Command, args []string) {
 
+			// FIXME: Refactor into single lib method
 			fmt.Println("shutters:")
 			for _, v := range shutter {
 				fmt.Println(v)
@@ -29,6 +31,8 @@ from Terry Pratchett's Discworld novels.`,
 			for _, v := range camera {
 				fmt.Println(v)
 			}
+
+			clacks.Start()
 		},
 	}
 )
