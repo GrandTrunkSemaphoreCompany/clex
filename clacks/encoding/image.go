@@ -12,6 +12,11 @@ import (
 	"os"
 )
 
+// Image represents a number of different things, and is a target for refactoring
+//
+// - a directory, and a "counter" position for encoding, decoding
+// - methods for converting a stream to a directory of encoded pngs
+// - methods for converting a directory of encoded pngs to a stream
 type Image struct {
 	Directory string
 	Counter   int
@@ -24,6 +29,7 @@ func (ci *Image) New(d string) *Image {
 	return i
 }
 
+// Write converts a byte slice into a series of clacks images
 func (ci *Image) Write(p []byte) (n int, err error) {
 	for i := 0; i < len(p); i++ {
 		clexImage := ci.MakeClacksFromByte(p[i])
@@ -43,6 +49,7 @@ func (ci *Image) Write(p []byte) (n int, err error) {
 	return len(p), nil
 }
 
+// AddClacksShutters is a drawing utility method that adds shutters to the image
 func (ci *Image) AddClacksShutters(im *image.RGBA, bnd image.Rectangle, byte uint8) {
 	spacer := 10
 	var shutterWidth int
@@ -85,11 +92,13 @@ func (ci *Image) AddClacksShutters(im *image.RGBA, bnd image.Rectangle, byte uin
 	}
 }
 
+// AddSky is a drawing utility method that adds a blue frame to the image to simulate the sky
 func (ci *Image) AddSky(im *image.RGBA) {
 	skyBlue := color.RGBA{135, 206, 235, 255}
 	draw.Draw(im, im.Bounds(), &image.Uniform{skyBlue}, image.ZP, draw.Src)
 }
 
+// AddClacksFrame is a drawing utility method that adds a brown frame to the image to simulate the wooden frame
 func (ci *Image) AddClacksFrame(im *image.RGBA) image.Rectangle {
 	skySpacer := 10
 	ClacksBrown := color.RGBA{193, 154, 107, 255}
@@ -100,6 +109,7 @@ func (ci *Image) AddClacksFrame(im *image.RGBA) image.Rectangle {
 	return ClacksRect
 }
 
+// MakeClacksFromByte converts a byte into a simple representation of a Clacks image
 func (ci *Image) MakeClacksFromByte(b uint8) image.Image {
 	m := image.NewRGBA(image.Rect(0, 0, 130, 190)) // x1,y1,  x2,y2
 
@@ -110,6 +120,7 @@ func (ci *Image) MakeClacksFromByte(b uint8) image.Image {
 	return m
 }
 
+// Read implements the Reader interfaces to read a series of images from the filesystem
 func (ci *Image) Read(p []byte) (n int, err error) {
 	// check directory set
 
@@ -143,6 +154,7 @@ func (ci *Image) Read(p []byte) (n int, err error) {
 	return len(files), nil
 }
 
+// ReadFile takes a filepath and returns an image
 func ReadFile(filepath string) (image image.Image, error error) {
 	// Read image from file that already exists
 	existingImageFile, err := os.Open(filepath)
@@ -159,6 +171,7 @@ func ReadFile(filepath string) (image image.Image, error error) {
 	return loadedImage, err
 }
 
+// GetByteFromImage takes a clacks image and decodes it into a byte
 func GetByteFromImage(img image.Image) (byte byte, error error) {
 	// 1. Create a new filter list and add some filters.
 	g := gift.New(

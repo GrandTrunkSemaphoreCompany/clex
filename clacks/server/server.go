@@ -1,8 +1,10 @@
-package clacks
+package server
 
 import (
+	"github.com/GrandTrunkSemaphoreCompany/clex/clacks/encoding"
 	"github.com/gin-gonic/gin"
 	"log"
+	"time"
 )
 
 type WebMessage struct {
@@ -10,7 +12,7 @@ type WebMessage struct {
 	Destination int    `form:"destination" json:"destination" binding:"required,numeric"`
 }
 
-func healthCheck(c *gin.Context) {
+func healthCheckHandler(c *gin.Context) {
 	c.JSON(200, gin.H{
 		"message": "pong",
 	})
@@ -43,26 +45,25 @@ func queuePrintHandler(c *gin.Context) {
 func sendHandler(c *gin.Context) {
 	var wm WebMessage
 	if err := c.BindJSON(&wm); err != nil {
-		panic(err)
+		log.Fatal(err)
 	}
 
-	m := Message{
-		body:        wm.Message,
-		destination: wm.Destination,
+	m := encoding.Message{
+		Body:        wm.Message,
+		Destination: wm.Destination,
 	}
 
 	c.JSON(200, gin.H{
-		"status":  "posted",
-		"message": m.String(),
+		"status":   "received",
+		"message":  m.Body,
+		"received": time.Now().UTC(),
 	})
-
-	log.Println(wm.Destination)
 }
 
 func Start() {
 	r := gin.Default()
 
-	r.GET("/ping", healthCheck)
+	r.GET("/ping", healthCheckHandler)
 
 	r.POST("/send", sendHandler)
 
