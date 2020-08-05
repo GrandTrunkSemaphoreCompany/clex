@@ -3,6 +3,7 @@ package server
 import (
 	"fmt"
 	"github.com/GrandTrunkSemaphoreCompany/clex/clacks/encoding"
+	"github.com/GrandTrunkSemaphoreCompany/clex/clacks/sinks"
 	"github.com/GrandTrunkSemaphoreCompany/clex/config"
 	"github.com/gin-gonic/gin"
 	"log"
@@ -61,11 +62,8 @@ func sendHandler(c *gin.Context) {
 		"received": time.Now().UTC(),
 	})
 
-	im := new(encoding.Image)
-	im.Directory = "/tmp/clex/100"
-
-	im.Write([]byte(m.String()))
-
+	d := sinks.NewDirectory("/tmp/clex", 101)
+	d.Write(m)
 }
 
 func Start(c config.Config) {
