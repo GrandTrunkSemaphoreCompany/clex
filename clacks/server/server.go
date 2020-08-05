@@ -60,6 +60,12 @@ func sendHandler(c *gin.Context) {
 		"message":  m.Body,
 		"received": time.Now().UTC(),
 	})
+
+	im := new(encoding.Image)
+	im.Directory = "/tmp/clex/100"
+
+	im.Write([]byte(m.String()))
+
 }
 
 func Start(c config.Config) {
