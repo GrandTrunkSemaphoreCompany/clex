@@ -1,7 +1,9 @@
 package server
 
 import (
+	"fmt"
 	"github.com/GrandTrunkSemaphoreCompany/clex/clacks/encoding"
+	"github.com/GrandTrunkSemaphoreCompany/clex/config"
 	"github.com/gin-gonic/gin"
 	"log"
 	"time"
@@ -60,7 +62,19 @@ func sendHandler(c *gin.Context) {
 	})
 }
 
-func Start() {
+func Start(c config.Config) {
+	fmt.Printf("Server started as %d\n", c.Id)
+
+	fmt.Println("Sinks:")
+	for _, v := range c.Sinks {
+		fmt.Printf("    %d @ %s\n", v.Id, v.URI)
+	}
+
+	fmt.Println("Source:")
+	for _, v := range c.Sources {
+		fmt.Printf("    %d @ %s\n", v.Id, v.URI)
+	}
+
 	r := gin.Default()
 
 	r.GET("/ping", healthCheckHandler)

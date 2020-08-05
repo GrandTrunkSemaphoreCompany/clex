@@ -1,0 +1,11 @@
+id: 190
+sinks:
+  - id: 190
+    uri: file://tmp/clex
+sources:
+  - id: 190
+    uri: web
+  - id: 210
+    uri: camera://usb1
+  - id: 220
+    uri: http://localhost:220/feed
