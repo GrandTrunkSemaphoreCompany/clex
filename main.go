@@ -1,3 +1,4 @@
+// Package main provides an entry point for the CLI to run the server
 package main
 
 import (

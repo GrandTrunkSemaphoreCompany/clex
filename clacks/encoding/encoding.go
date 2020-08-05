@@ -1,5 +1,6 @@
 package encoding
 
+// BoolsToBytes converts a slice of bools into a slice of bytes
 func BoolsToBytes(t []bool) []byte {
 	b := make([]byte, (len(t)+7)/8)
 	for i, x := range t {
@@ -11,6 +12,7 @@ func BoolsToBytes(t []bool) []byte {
 	return b
 }
 
+// BytesToBools converts a slice of bytes into a slice of booleans
 func BytesToBools(b []byte) []bool {
 	t := make([]bool, 8*len(b))
 	for i, x := range b {
