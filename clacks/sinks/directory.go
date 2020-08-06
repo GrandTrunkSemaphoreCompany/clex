@@ -23,7 +23,7 @@ func NewDirectory(basePath string, id int) *Directory {
 func (d *Directory) Write(m encoding.Message) (err error) {
 	path := fmt.Sprintf("%s/%d/%d", d.BasePath, d.Id, m.Created.UnixNano())
 	im := new(encoding.Image)
-	im.Directory = path
+	im.BasePath = path
 
 	_, err = im.Write([]byte(m.String()))
 

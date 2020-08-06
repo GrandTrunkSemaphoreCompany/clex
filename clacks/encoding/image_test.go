@@ -16,7 +16,7 @@ func TestMakeClacksFromByteUsingInvalidDirectory(t *testing.T) {
 
 	s := "a A"
 	im := new(Image)
-	im.Directory = dir
+	im.BasePath = dir
 
 	_, err := im.Write([]byte(s))
 	if err == nil {
@@ -34,7 +34,7 @@ func TestMakeClacksFromByte(t *testing.T) {
 
 	s := "a A"
 	im := new(Image)
-	im.Directory = dir
+	im.BasePath = dir
 
 	_, err = im.Write([]byte(s))
 	if err != nil {
