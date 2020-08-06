@@ -20,8 +20,8 @@ func NewDirectory(basePath string, id int) *Directory {
 }
 
 // Write takes a message and passes it through the Image writer
-func (d Directory) Write(m encoding.Message) (err error) {
-	path := fmt.Sprintf("%s/%d", d.BasePath, d.Id)
+func (d *Directory) Write(m encoding.Message) (err error) {
+	path := fmt.Sprintf("%s/%d/%d", d.BasePath, d.Id, m.Created.UnixNano())
 	im := new(encoding.Image)
 	im.Directory = path
 

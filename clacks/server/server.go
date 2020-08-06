@@ -54,15 +54,16 @@ func sendHandler(c *gin.Context) {
 	m := encoding.Message{
 		Body:        wm.Message,
 		Destination: wm.Destination,
+		Created:     time.Now().UTC(),
 	}
 
 	c.JSON(200, gin.H{
 		"status":   "received",
 		"message":  m.Body,
-		"received": time.Now().UTC(),
+		"received": m.Created,
 	})
 
-	d := sinks.NewDirectory("/tmp/clex", 101)
+	d := sinks.NewDirectory("/tmp/clex", 102)
 	d.Write(m)
 }
 

@@ -34,7 +34,7 @@ func (ci *Image) Write(p []byte) (n int, err error) {
 	for i := 0; i < len(p); i++ {
 		clexImage := ci.MakeClacksFromByte(p[i])
 
-		filename := fmt.Sprintf("%s/%03d.png", ci.Directory, ci.Counter)
+		filename := fmt.Sprintf("%s-%03d.png", ci.Directory, ci.Counter)
 
 		myfile, err := os.Create(filename)
 		if err != nil {
@@ -45,7 +45,6 @@ func (ci *Image) Write(p []byte) (n int, err error) {
 
 		ci.Counter = ci.Counter + 1
 	}
-
 	return len(p), nil
 }
 
