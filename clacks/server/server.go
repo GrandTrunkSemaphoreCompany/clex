@@ -70,7 +70,7 @@ func sendHandler(c *gin.Context) {
 func Start(c config.Config) {
 	printConfigDetails(c)
 
-	// configureSources(c)
+	//configureSources(c)
 	//configureSinks(c)
 
 	r := gin.Default()

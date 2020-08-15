@@ -40,7 +40,10 @@ func (ci *Image) Write(p []byte) (n int, err error) {
 			return 0, err
 		}
 
-		png.Encode(myfile, clexImage)
+		err = png.Encode(myfile, clexImage)
+		if err != nil {
+			return i + 1, err
+		}
 
 	}
 	return len(p), nil
