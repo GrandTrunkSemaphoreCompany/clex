@@ -18,13 +18,12 @@ import (
 // - methods for converting a stream to a directory of encoded pngs
 // - methods for converting a directory of encoded pngs to a stream
 type Image struct {
-	Directory string
-	Counter   int
+	BasePath string
 }
 
 func (ci *Image) New(d string) *Image {
 	i := new(Image)
-	i.Directory = d
+	i.BasePath = d
 
 	return i
 }
@@ -34,18 +33,19 @@ func (ci *Image) Write(p []byte) (n int, err error) {
 	for i := 0; i < len(p); i++ {
 		clexImage := ci.MakeClacksFromByte(p[i])
 
-		filename := fmt.Sprintf("%s/%03d.png", ci.Directory, ci.Counter)
+		filename := fmt.Sprintf("%s-%03d.png", ci.BasePath, i)
 
 		myfile, err := os.Create(filename)
 		if err != nil {
 			return 0, err
 		}
 
-		png.Encode(myfile, clexImage)
+		err = png.Encode(myfile, clexImage)
+		if err != nil {
+			return i + 1, err
+		}
 
-		ci.Counter = ci.Counter + 1
 	}
-
 	return len(p), nil
 }
 
@@ -130,14 +130,14 @@ func (ci *Image) Read(p []byte) (n int, err error) {
 	// func (f *File) Readdir(n int) ([]FileInfo, error) {
 
 	// load directory
-	files, err := ioutil.ReadDir(ci.Directory)
+	files, err := ioutil.ReadDir(ci.BasePath)
 	if err != nil {
 		log.Fatal(err)
 	}
 
 	for i, f := range files {
 		// load each file
-		img, err := ReadFile(ci.Directory + "/" + f.Name())
+		img, err := ReadFile(ci.BasePath + "/" + f.Name())
 		if err != nil {
 			return i, err
 		}

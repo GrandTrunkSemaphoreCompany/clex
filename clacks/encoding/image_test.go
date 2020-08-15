@@ -7,6 +7,7 @@ import (
 	"log"
 	"os"
 	"testing"
+	"time"
 )
 
 var update = flag.Bool("update", false, "update golden file")
@@ -16,17 +17,18 @@ func TestMakeClacksFromByteUsingInvalidDirectory(t *testing.T) {
 
 	s := "a A"
 	im := new(Image)
-	im.Directory = dir
+	im.BasePath = dir
 
 	_, err := im.Write([]byte(s))
 	if err == nil {
-		t.Fatalf("Test shoudl fail on not created directory")
+		t.Fatalf("Test should fail on not created directory")
 	}
 
 }
 
 func TestMakeClacksFromByte(t *testing.T) {
-	dir := os.TempDir() + "/clacks-unit/writing"
+	dir := fmt.Sprintf("%s/clacks-unit/writing/%d", os.TempDir(), time.Now().UTC().UnixNano())
+
 	err := os.MkdirAll(dir, 0700)
 	if err != nil {
 		t.Fatal(err)
@@ -34,7 +36,7 @@ func TestMakeClacksFromByte(t *testing.T) {
 
 	s := "a A"
 	im := new(Image)
-	im.Directory = dir
+	im.BasePath = dir + "/"
 
 	_, err = im.Write([]byte(s))
 	if err != nil {
