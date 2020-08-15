@@ -1,10 +1,16 @@
 id: 190
 sinks:
   - id: 190
-    uri: file://tmp/clex
+    uri: file:///tmp/clex
+  - id: 200
+    uri: file:///tmp/clex
+  - id: 200
+    uri: console://
 sources:
   - id: 190
     uri: web
+  - id: 190
+    uri: camera://usb2
   - id: 210
     uri: camera://usb1
   - id: 220

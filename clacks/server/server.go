@@ -68,6 +68,30 @@ func sendHandler(c *gin.Context) {
 }
 
 func Start(c config.Config) {
+	printConfigDetails(c)
+
+	// configureSources(c)
+	//configureSinks(c)
+
+	r := gin.Default()
+	configureRouting(r)
+	r.Run() // listen and serve on 0.0.0.0:8080 (for windows "localhost:8080")
+}
+
+func configureRouting(r *gin.Engine) {
+	r.GET("/ping", healthCheckHandler)
+
+	r.POST("/send", sendHandler)
+
+	r.GET("/queue/process", queueProcessHandler)
+	r.GET("/queue/print", queuePrintHandler)
+	r.GET("/queue/tower/:id", queueTowerHandler)
+
+	r.GET("/history", historyHandler)
+
+}
+
+func printConfigDetails(c config.Config) {
 	fmt.Printf("Server started as %d\n", c.Id)
 
 	fmt.Println("Sinks:")
@@ -79,18 +103,4 @@ func Start(c config.Config) {
 	for _, v := range c.Sources {
 		fmt.Printf("    %d @ %s\n", v.Id, v.URI)
 	}
-
-	r := gin.Default()
-
-	r.GET("/ping", healthCheckHandler)
-
-	r.POST("/send", sendHandler)
-
-	r.GET("/queue/process", queueProcessHandler)
-	r.GET("/queue/print", queuePrintHandler)
-	r.GET("/queue/tower/:id", queueTowerHandler)
-
-	r.GET("/history", historyHandler)
-
-	r.Run() // listen and serve on 0.0.0.0:8080 (for windows "localhost:8080")
 }

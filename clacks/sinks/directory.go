@@ -19,6 +19,10 @@ func NewDirectory(basePath string, id int) *Directory {
 	return &Directory{basePath, id}
 }
 
+type sink interface {
+	Write(m encoding.Message) (err error)
+}
+
 // Write takes a message and passes it through the Image writer
 func (d *Directory) Write(m encoding.Message) (err error) {
 	path := fmt.Sprintf("%s/%d/%d", d.BasePath, d.Id, m.Created.UnixNano())
