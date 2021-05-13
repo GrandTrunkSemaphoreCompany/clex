@@ -3,7 +3,6 @@ package cmd
 
 import (
 	"fmt"
-	"github.com/GrandTrunkSemaphoreCompany/clex/clacks/server"
 	"github.com/GrandTrunkSemaphoreCompany/clex/config"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
@@ -23,9 +22,6 @@ var (
 		Long: `Clex is a computer based application for interfacing with a visual 
 semaphore system. The semaphore system is based upon the Clacks
 from Terry Pratchett's Discworld novels.`,
-		Run: func(cmd *cobra.Command, args []string) {
-			server.Start(c)
-		},
 	}
 )
 
