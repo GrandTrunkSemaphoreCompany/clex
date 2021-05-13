@@ -15,3 +15,10 @@ sources:
     uri: camera://usb1
   - id: 220
     uri: http://localhost:220/feed
+cameras:
+  - id: 100
+    url: usb:///dev/video4
+  - id: 101
+    url: usb:///dev/video2
+  - id: 121
+    url: usb:///dev/video0
