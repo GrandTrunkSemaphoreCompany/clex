@@ -1,7 +1,7 @@
 package cmd
 
 import (
-	"github.com/GrandTrunkSemaphoreCompany/clex/clacks/server"
+	"github.com/GrandTrunkSemaphoreCompany/clex/server"
 
 	"github.com/spf13/cobra"
 )

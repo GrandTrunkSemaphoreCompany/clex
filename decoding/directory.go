@@ -1,8 +1,8 @@
-package sinks
+package decoding
 
 import (
 	"fmt"
-	"github.com/GrandTrunkSemaphoreCompany/clex/clacks/encoding"
+	"github.com/GrandTrunkSemaphoreCompany/clex/encoding"
 )
 
 // A directory is a kind of sink that creates a series of images in a folder
