@@ -13,5 +13,8 @@ build-linux: $(GOFILES)
 build-rasp: $(GOFILES)
 	GOOS=linux GOARCH=arm GOARM=7 CGO_ENABLED=1 go build -o bin/clex .
 
+build-ci: $(GOFILES)
+	go build -o bin/clex .
+
 test:
 	go test ./...

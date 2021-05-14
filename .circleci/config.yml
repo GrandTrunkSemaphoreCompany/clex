@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: circleci/golang:1.12
+      - image: gocv/opencv:4.5.2
 
     environment:
       TEST_RESULTS: /tmp/test-results
@@ -17,7 +17,7 @@ jobs:
 
       - run: make test
 
-      - run: make
+      - run: make build-ci
 
       - save_cache:
           key: go-mod-v4-{{ checksum "go.sum" }}
