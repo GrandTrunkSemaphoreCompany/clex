@@ -6,17 +6,36 @@ import (
 	"github.com/GrandTrunkSemaphoreCompany/clex/config"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
+	"gocv.io/x/gocv"
 	"log"
+	"net/url"
 	"os"
+	"strconv"
+	"strings"
 )
+
+// CameraConfig represents an input camera
+type CameraConfig struct {
+	Id int
+	Url string
+	Position int
+}
+
+// Config and an initialised gocv.VideoCapture
+type VideoInput struct {
+	CameraConfig CameraConfig
+	VideoCapture *gocv.VideoCapture
+}
 
 var (
 	id     int
 	sink   []string
 	source []string
 	c      config.Config
+	cameras []CameraConfig
 
-	rootCmd = &cobra.Command{
+
+rootCmd = &cobra.Command{
 		Use:   "clex",
 		Short: "Clex works with a Clacks system to send messages via visual semaphore",
 		Long: `Clex is a computer based application for interfacing with a visual 
@@ -63,4 +82,38 @@ func initConfig() {
 	if err != nil {
 		log.Fatalf("unable to decode into struct, %v", err)
 	}
+
+	viper.UnmarshalKey("cameras", &cameras)
+
+}
+
+func (v CameraConfig) InitVideoInput() (VideoInput, error) {
+	var videoInput VideoInput
+
+	url, err := url.Parse(v.Url)
+	if err != nil {
+		return videoInput, fmt.Errorf("error parsing %v", v.Url)
+	}
+
+	if url.Scheme != "usb" {
+		return videoInput, fmt.Errorf("Scheme %s not supported", url.Scheme)
+	}
+
+	//if url.Scheme == "usb" {
+	idPart := strings.Replace(url.Path, "/dev/video", "", -1)
+	//fmt.Printf("idPart: %s\n", idPart)
+	id, err := strconv.Atoi(idPart)
+	if err != nil {
+		fmt.Println(err)
+		return videoInput, fmt.Errorf("ID not valid %s", idPart)
+	}
+
+	videoInput.CameraConfig = v
+	capture, err := gocv.OpenVideoCapture(id)
+	if err != nil {
+		return videoInput, err
+	}
+
+	videoInput.VideoCapture = capture
+	return videoInput, nil
 }
