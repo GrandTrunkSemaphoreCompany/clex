@@ -70,8 +70,7 @@ func scanCameras(cameras []VideoInput, window *gocv.Window) {
 				continue
 			}
 
-			display.DisplayInWindow(window, &windowMat, c.CameraConfig.Position,1, len(cameras),&workingMat)
-
+			display.DisplayInWindow(window, &windowMat, c.CameraConfig.Position, 1, len(cameras), &workingMat)
 
 			analyse.HoughCircles(&workingMat)
 			text := analyse.GetBytes(&workingMat)

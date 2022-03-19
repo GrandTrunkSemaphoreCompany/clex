@@ -35,10 +35,9 @@ func ApplyCircles(img *gocv.Mat, circles gocv.Mat) {
 
 	fmt.Printf("Rows: %v / Cols: %v\n", circles.Rows(), circles.Cols())
 
-
 	//for i: = 0; i < circles.Size(); i++ {
 	//for i, _ := range circles.Size() {
-	for i := 0; i< circles.Cols(); i++ {
+	for i := 0; i < circles.Cols(); i++ {
 		v := circles.GetVecfAt(0, i)
 		if len(v) > 2 {
 			x := int(v[0])
@@ -66,4 +65,3 @@ func ApplyCircles(img *gocv.Mat, circles gocv.Mat) {
 		//gocv.Circle(img, center, int(radius), contourColor, 2)
 	}
 }
-

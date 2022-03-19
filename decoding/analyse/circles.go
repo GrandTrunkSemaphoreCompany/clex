@@ -20,12 +20,10 @@ func HoughCircles(img *gocv.Mat) {
 
 	gocv.CvtColor(*img, &gray, gocv.ColorBGRToGray)
 
-
 	circles := gocv.NewMat()
 	defer circles.Close()
 
-	gocv.HoughCirclesWithParams(gray, &circles, gocv.HoughGradient,  dp, float64(gray.Rows()/8), cannyUpperThreshold, accumulator, minRadius, maxRadius)
-
+	gocv.HoughCirclesWithParams(gray, &circles, gocv.HoughGradient, dp, float64(gray.Rows()/8), cannyUpperThreshold, accumulator, minRadius, maxRadius)
 
 	//overlay.ApplyCircles(img, circles)
 
@@ -37,7 +35,7 @@ func HoughCircles(img *gocv.Mat) {
 func CirclesToBoxelBoundingBox(circles gocv.Mat) image.Rectangle {
 
 	if circles.Cols() < 4 {
-		return image.Rectangle{Min: image.Point{X:0, Y:0}, Max: image.Point{X:0, Y:0}}
+		return image.Rectangle{Min: image.Point{X: 0, Y: 0}, Max: image.Point{X: 0, Y: 0}}
 	}
 
 	//var vecf []gocv.Vecf
@@ -49,7 +47,7 @@ func CirclesToBoxelBoundingBox(circles gocv.Mat) image.Rectangle {
 	var yMax float32
 	var rAvg float32
 	//
-	for i := 0; i< circles.Cols(); i++ {
+	for i := 0; i < circles.Cols(); i++ {
 		//circles.GetVec
 		p := circles.GetVecfAt(0, i)
 
@@ -80,7 +78,7 @@ func CirclesToBoxelBoundingBox(circles gocv.Mat) image.Rectangle {
 	//fmt.Println(yMin)
 	//fmt.Println(yMax)
 	//
-	return image.Rectangle{Min: image.Point{X:int(xMin+2*rAvg), Y:int(yMin+2*rAvg)}, Max: image.Point{X:int(xMax-2*rAvg), Y:int(yMax-2*rAvg)}}
+	return image.Rectangle{Min: image.Point{X: int(xMin + 2*rAvg), Y: int(yMin + 2*rAvg)}, Max: image.Point{X: int(xMax - 2*rAvg), Y: int(yMax - 2*rAvg)}}
 	////
 	////fmt.Println(circles.GetVecfAt(0, 0))
 	////fmt.Println(circles.GetVecdAt(0, 0))
@@ -112,6 +110,5 @@ func CirclesToBoxelBoundingBox(circles gocv.Mat) image.Rectangle {
 	////yMax := vecf[1][0]
 	//
 	//return image.Rectangle{Min: image.Point{X:0, Y:0}, Max: image.Point{X:0, Y:0}}
-
 
 }

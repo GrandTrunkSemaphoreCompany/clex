@@ -11,9 +11,8 @@ var measurement float64 = 0.0
 var smoothing float64 = 0.5
 var tickTime time.Time = time.Now()
 
-
 // Adds a value smoothed frames per second count to the gocv.Mat
-func ApplyFPS(baseImg *gocv.Mat ) {
+func ApplyFPS(baseImg *gocv.Mat) {
 	currentTime := time.Now()
 
 	//fmt.Println(tickTime)
@@ -23,7 +22,7 @@ func ApplyFPS(baseImg *gocv.Mat ) {
 	//fmt.Printf("duration: %f\n", fpsDuration.Seconds())
 	//fmt.Printf("duration: %d\n", fpsDuration.Milliseconds())
 
-	measurement = (measurement * smoothing) + fpsDuration.Seconds() * (1.0 - smoothing)
+	measurement = (measurement * smoothing) + fpsDuration.Seconds()*(1.0-smoothing)
 	//fmt.Printf("measuement: %f\n", measurement)
 
 	fpsLabel := fmt.Sprintf("%.0ffps", 1/measurement)
