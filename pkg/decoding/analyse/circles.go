@@ -1,7 +1,7 @@
 package analyse
 
 import (
-	"github.com/GrandTrunkSemaphoreCompany/clex/decoding/overlay"
+	"github.com/GrandTrunkSemaphoreCompany/clex/pkg/decoding/overlay"
 	"gocv.io/x/gocv"
 	"image"
 	"math"

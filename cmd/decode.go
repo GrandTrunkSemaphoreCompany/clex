@@ -2,9 +2,9 @@ package cmd
 
 import (
 	"fmt"
-	"github.com/GrandTrunkSemaphoreCompany/clex/decoding/analyse"
-	"github.com/GrandTrunkSemaphoreCompany/clex/decoding/display"
-	"github.com/GrandTrunkSemaphoreCompany/clex/decoding/overlay"
+	"github.com/GrandTrunkSemaphoreCompany/clex/pkg/decoding/analyse"
+	"github.com/GrandTrunkSemaphoreCompany/clex/pkg/decoding/display"
+	"github.com/GrandTrunkSemaphoreCompany/clex/pkg/decoding/overlay"
 	"gocv.io/x/gocv"
 
 	"github.com/spf13/cobra"

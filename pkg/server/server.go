@@ -3,7 +3,7 @@ package server
 import (
 	"fmt"
 	"github.com/GrandTrunkSemaphoreCompany/clex/config"
-	"github.com/GrandTrunkSemaphoreCompany/clex/encoding"
+	"github.com/GrandTrunkSemaphoreCompany/clex/pkg/message"
 	"github.com/gin-gonic/gin"
 	"log"
 	"time"
@@ -50,7 +50,7 @@ func sendHandler(c *gin.Context) {
 		log.Fatal(err)
 	}
 
-	m := encoding.Message{
+	m := message.Message{
 		Body:        wm.Message,
 		Destination: wm.Destination,
 		Created:     time.Now().UTC(),
