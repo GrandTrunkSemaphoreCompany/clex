@@ -2,7 +2,7 @@ package analyse
 
 import (
 	"fmt"
-	"github.com/GrandTrunkSemaphoreCompany/clex/pkg/decoding/overlay"
+	"github.com/GrandTrunkSemaphoreCompany/clex/pkg/decoding/camera/overlay"
 	"gocv.io/x/gocv"
 	"image"
 	"image/color"

@@ -1,4 +1,4 @@
-package decoding
+package camera
 
 import (
 	"fmt"
