@@ -7,7 +7,6 @@ import (
 
 const MinimumArea = 1
 
-
 // Applies a countour line around supplied contours
 func ApplyTracing(img *gocv.Mat, contours gocv.PointsVector) {
 	//fmt.prin
@@ -38,4 +37,3 @@ func ApplyTracing(img *gocv.Mat, contours gocv.PointsVector) {
 
 	}
 }
-

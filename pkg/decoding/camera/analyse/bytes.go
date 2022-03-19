@@ -40,16 +40,16 @@ func GetBytes(mat *gocv.Mat) string {
 	var b uint = 0
 
 	for row := 0; row < 4; row++ {
-		for col := 0; col <2; col++ {
-			y = row*pixelHeight+pixelYOffset
-			x = col*pixelWidth+pixelXOffset
+		for col := 0; col < 2; col++ {
+			y = row*pixelHeight + pixelYOffset
+			x = col*pixelWidth + pixelXOffset
 
 			for c := 0; c < ch; c++ {
 				//fmt.Printf("%v", c)
 				v[c] = mat.GetUCharAt(y, x*ch+c)
 			}
 
-			if(v[0] == 255) {
+			if v[0] == 255 {
 				b = 1
 			} else {
 				b = 0

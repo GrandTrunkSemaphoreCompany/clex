@@ -16,8 +16,8 @@ import (
 
 // CameraConfig represents an input camera
 type CameraConfig struct {
-	Id int
-	Url string
+	Id       int
+	Url      string
 	Position int
 }
 
@@ -28,14 +28,13 @@ type VideoInput struct {
 }
 
 var (
-	id     int
-	sink   []string
-	source []string
-	c      config.Config
+	id      int
+	sink    []string
+	source  []string
+	c       config.Config
 	cameras []CameraConfig
 
-
-rootCmd = &cobra.Command{
+	rootCmd = &cobra.Command{
 		Use:   "clex",
 		Short: "Clex works with a Clacks system to send messages via visual semaphore",
 		Long: `Clex is a computer based application for interfacing with a visual 

@@ -2,16 +2,14 @@ package analyse
 
 import (
 	"fmt"
-	"github.com/GrandTrunkSemaphoreCompany/clex/decoding/overlay"
+	"github.com/GrandTrunkSemaphoreCompany/clex/pkg/decoding/camera/overlay"
 	"gocv.io/x/gocv"
 	"image"
 	"image/color"
 	"math"
 )
 
-
 var lineColor = color.RGBA{255, 0, 0, 0}
-
 
 func FindAreasAndFormat(img *gocv.Mat, analyzedImg *gocv.Mat) {
 	blurImg := gocv.NewMat()
@@ -40,7 +38,7 @@ func FindAreasAndFormat(img *gocv.Mat, analyzedImg *gocv.Mat) {
 	gocv.MorphologyEx(thresholdImg, analyzedImg, gocv.MorphClose, kernel)
 
 	//Step 3 Filter for Code
-	contours := gocv.FindContours(thresholdImg, gocv.RetrievalExternal, gocv.ChainApproxSimple )
+	contours := gocv.FindContours(thresholdImg, gocv.RetrievalExternal, gocv.ChainApproxSimple)
 
 	overlay.ApplyTracing(img, contours)
 
@@ -63,7 +61,6 @@ func FindAreasAndFormat(img *gocv.Mat, analyzedImg *gocv.Mat) {
 		fmt.Println("No lines found")
 	}
 }
-
 
 //Convert image to grayscale and median blur to smooth image
 //Sharpen image to enhance edges
@@ -91,9 +88,8 @@ func FindContoursAndROI(img *gocv.Mat) {
 	//	thresh = cv2.threshold(sharpen,160,255, cv2.THRESH_BINARY_INV)[1]
 	gocv.Threshold(blurImg, img, 0.0, 255.0, gocv.ThresholdBinary+gocv.ThresholdOtsu)
 
-	kernel := gocv.GetStructuringElement(gocv.MorphRect, image.Point{5,5})
+	kernel := gocv.GetStructuringElement(gocv.MorphRect, image.Point{5, 5})
 	defer kernel.Close()
-
 
 	//gocv.Erode(thresholdImg, &thresholdImg, kernel)
 
@@ -140,10 +136,9 @@ func FindByChessboard(img *gocv.Mat) {
 	cornersMat := gocv.NewMat()
 	defer cornersMat.Close()
 
-	found := gocv.FindChessboardCorners(*img, image.Point{9, 6}, &cornersMat, gocv.CalibCBAdaptiveThresh & gocv.CalibCBNormalizeImage & gocv.CalibCBExhaustive)
+	found := gocv.FindChessboardCorners(*img, image.Point{9, 6}, &cornersMat, gocv.CalibCBAdaptiveThresh&gocv.CalibCBNormalizeImage&gocv.CalibCBExhaustive)
 	fmt.Println(found)
-	gocv.DrawChessboardCorners(img, image.Point{9,6}, cornersMat, true)
-
+	gocv.DrawChessboardCorners(img, image.Point{9, 6}, cornersMat, true)
 
 	//gocv.
 	//found := gocv.FindChessboardCorners(*img, image.Point{9, 6}, &cornersMat, gocv.CalibCBAdaptiveThresh & gocv.CalibCBNormalizeImage & gocv.CalibCBExhaustive)
@@ -168,14 +163,13 @@ func Manipulate(img *gocv.Mat) {
 	gocv.Canny(gray, &edges, weakThreshold, strongThreshold)
 
 	//Step 3 Filter for Code
-	contours := gocv.FindContours(edges, gocv.RetrievalExternal, gocv.ChainApproxSimple )
+	contours := gocv.FindContours(edges, gocv.RetrievalExternal, gocv.ChainApproxSimple)
 
 	overlay.ApplyTracing(img, contours)
 
 }
 
-
-func HoughTransform(img *gocv.Mat)  {
+func HoughTransform(img *gocv.Mat) {
 	//img := gocv.NewMat()
 	//img = src.Clone()
 

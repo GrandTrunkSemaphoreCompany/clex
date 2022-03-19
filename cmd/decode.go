@@ -2,9 +2,9 @@ package cmd
 
 import (
 	"fmt"
-	"github.com/GrandTrunkSemaphoreCompany/clex/decoding/analyse"
-	"github.com/GrandTrunkSemaphoreCompany/clex/decoding/display"
-	"github.com/GrandTrunkSemaphoreCompany/clex/decoding/overlay"
+	"github.com/GrandTrunkSemaphoreCompany/clex/pkg/decoding/camera/analyse"
+	"github.com/GrandTrunkSemaphoreCompany/clex/pkg/decoding/camera/display"
+	"github.com/GrandTrunkSemaphoreCompany/clex/pkg/decoding/camera/overlay"
 	"gocv.io/x/gocv"
 
 	"github.com/spf13/cobra"
@@ -70,8 +70,7 @@ func scanCameras(cameras []VideoInput, window *gocv.Window) {
 				continue
 			}
 
-			display.DisplayInWindow(window, &windowMat, c.CameraConfig.Position,1, len(cameras),&workingMat)
-
+			display.DisplayInWindow(window, &windowMat, c.CameraConfig.Position, 1, len(cameras), &workingMat)
 
 			analyse.HoughCircles(&workingMat)
 			text := analyse.GetBytes(&workingMat)
